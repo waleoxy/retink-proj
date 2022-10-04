@@ -7,7 +7,7 @@ const buttonVariant = {
   hover: {
     scale: 1.005,
     textShadow: "0px 0px 8px rgb(255,255,255)",
-    color: "0px 0px 8px rgb(0,0,255)",
+    boxShadow: "0px 0px 8px rgb(0,0,255)",
     transition: {
       duration: 0.3,
     },
@@ -29,8 +29,8 @@ const Benefits = () => {
             width: "361px",
             padding: "36px",
             borderRadius: "20px",
-            // boxSizing: "border-box",
-            // boxShadow: "5px 5px 5px 0 rgba(0, 0, 0, 0.3)",
+            boxSizing: "border-box",
+            boxShadow: "5px 5px 5px 0 rgba(0, 0, 0, 0.3)",
           }}
           key={benefit.id}>
           <Card.Img style={benefit.style} variant="top" src={benefit.image} />

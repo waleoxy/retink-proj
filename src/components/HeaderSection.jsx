@@ -6,7 +6,6 @@ import { motion, useCycle } from "framer-motion";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useState } from "react";
-import { async } from "@firebase/util";
 
 const loaderVariants = {
   animationOne: {
@@ -60,15 +59,15 @@ const HeaderSection = () => {
   } = useForm();
 
   const onSubmit = ({ businessName, email }) => {
-    console.log("b", businessName);
-    // createUserWithEmailAndPassword(auth, email)
-    //   .then((userData) => {
-    //     const user = userData.user;
-    //     setUser(user);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //   });
+    console.log("b", businessName, email);
+    createUserWithEmailAndPassword(auth, email)
+      .then((userData) => {
+        const user = userData.user;
+        setUser(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   console.log(user);
   return (
@@ -89,44 +88,46 @@ const HeaderSection = () => {
         <div>
           <p className="title">Sign Up For The BETA!</p>
           <div>
-            <form className="form-grp" onSubmit={handleSubmit(onSubmit)}>
-              <input
-                className="input"
-                {...register("businessName", {
-                  required: true,
-                })}
-                placeholder="Business Name"
-              />
-              {errors.businessName ? "Business name is required" : ""}
-              <span>would like a beta invite sent to </span>
-              <input
-                className="input"
-                {...register("email", {
-                  required: true,
-                  pattern: /^[a-z0-9.z_%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                })}
-                placeholder=" @email address"
-              />
-              {errors.email
-                ? errors.email.type === "pattern"
-                  ? "Email is not valid"
-                  : "Email is required"
-                : ""}
-              <span>when it’s ready!</span>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="form-grp">
+                <input
+                  className="input"
+                  {...register("businessName", {
+                    required: true,
+                  })}
+                  placeholder="Business Name"
+                />
+                {errors.businessName ? "Business name is required" : ""}
+                <span>would like a beta invite sent to </span>
+                <input
+                  className="input"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[a-z0-9.z_%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  })}
+                  placeholder=" @email address"
+                />
+                {errors.email
+                  ? errors.email.type === "pattern"
+                    ? "Email is not valid"
+                    : "Email is required"
+                  : ""}
+                <span>when it’s ready!</span>
+              </div>
+              <div className="btn-div">
+                {" "}
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  className="notify-btn"
+                  type="submit">
+                  Notify me
+                </motion.button>
+                <p className="freelance">
+                  <a href="/">Sign up as a freelance partner</a>
+                </p>
+              </div>
             </form>
-            <div className="btn-div">
-              {" "}
-              <motion.button
-                variants={buttonVariants}
-                whileHover="hover"
-                className="notify-btn"
-                onClick={onSubmit}>
-                Notify me
-              </motion.button>
-              <p className="freelance">
-                <a href="/">Sign up as a freelance partner</a>
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -145,7 +146,6 @@ const HeaderSection = () => {
     </HeaderSecDiv>
   );
 };
-
 export default HeaderSection;
 
 const HeaderSecDiv = styled.div`
