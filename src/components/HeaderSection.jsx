@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { motion, useCycle } from "framer-motion";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const loaderVariants = {
   animationOne: {
@@ -51,6 +51,18 @@ const buttonVariants = {
 const HeaderSection = () => {
   const [animation, cycle] = useCycle("animationOne", "animationTwo");
   const [user, setUser] = useState({});
+  const [modal, setModal] = useState(false);
+  const [showTitle, setShowTitle] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setModal(true);
+    }, 5000);
+  }, [setModal]);
+
+  setTimeout(() => {
+    setShowTitle(false);
+  }, 4000);
 
   const {
     register,
@@ -60,10 +72,12 @@ const HeaderSection = () => {
 
   const onSubmit = ({ businessName, email }) => {
     console.log("b", businessName, email);
-    createUserWithEmailAndPassword(auth, email)
+
+    createUserWithEmailAndPassword(auth, email, businessName)
       .then((userData) => {
         const user = userData.user;
         setUser(user);
+        setModal(true);
       })
       .catch((error) => {
         console.log(error.message);
@@ -97,8 +111,12 @@ const HeaderSection = () => {
                   })}
                   placeholder="Business Name"
                 />
-                {errors.businessName ? "Business name is required" : ""}
-                <span>would like a beta invite sent to </span>
+                {errors.businessName ? (
+                  "Business name is required"
+                ) : (
+                  <span>would like a beta invite sent to </span>
+                )}
+
                 <input
                   className="input"
                   {...register("email", {
