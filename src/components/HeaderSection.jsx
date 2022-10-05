@@ -149,6 +149,17 @@ const HeaderSection = () => {
           src={avatar}
           alt="avatar"
         />
+        <span
+          style={{
+            position: "absolute",
+            left: "250px",
+            top: "350px ",
+            zIndex: 0,
+            color: "red",
+            fontWeight: "bold",
+          }}>
+          Change Me
+        </span>
       </div>
     </HeaderSecDiv>
   );
