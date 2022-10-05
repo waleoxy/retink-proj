@@ -14,9 +14,7 @@ const OurOffers = () => {
             height: "386px",
             width: "361px",
             padding: "36px",
-            borderRadius: "20px",
-            boxSizing: "border-box",
-            boxShadow: "5px 5px 5px 0 rgba(0, 0, 0, 0.3)",
+            margin: "26px",
           }}
           key={benefit.id}>
           <Card.Img style={benefit.style} variant="top" src={benefit.image} />
@@ -52,12 +50,10 @@ const OurOffers = () => {
 export default OurOffers;
 
 const OurOffersDiv = styled.div`
-  display: grid;
-  margin-top: 26px;
-  padding: 28px;
-  width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   justify-content: center;
-  column-gap: 36px;
-  row-gap: 56px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 66px;
+  padding: 28px;
 `;

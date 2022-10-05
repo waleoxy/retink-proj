@@ -18,38 +18,36 @@ const Benefits = () => {
   return (
     <BenefitsDiv>
       {benefits.map((benefit) => (
-        <div className="card">
-          <motion.Card
-            variants={buttonVariant}
-            whileHover="hover"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              height: "386px",
-              width: "361px",
-              padding: "36px",
-              margin: "26px",
-              borderRadius: "20px",
-              boxSizing: "border-box",
-              boxShadow: "5px 5px 5px 0 rgba(0, 0, 0, 0.3)",
-            }}
-            key={benefit.id}>
-            <Card.Img style={benefit.style} variant="top" src={benefit.image} />
-            <Card.Body>
-              <Card.Title
-                style={{
-                  fontSize: "20px",
-                  fontWeight: "600",
-                  lineHeight: "30px",
-                  textAlign: "left",
-                }}>
-                {benefit.title}
-              </Card.Title>
-              <Card.Text>{benefit.text}</Card.Text>
-            </Card.Body>
-          </motion.Card>
-        </div>
+        <motion.Card
+          variants={buttonVariant}
+          whileHover="hover"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "386px",
+            width: "361px",
+            padding: "36px",
+            margin: "26px",
+            borderRadius: "20px",
+            boxSizing: "border-box",
+            boxShadow: "5px 5px 5px 0 rgba(0, 0, 0, 0.3)",
+          }}
+          key={benefit.id}>
+          <Card.Img style={benefit.style} variant="top" src={benefit.image} />
+          <Card.Body>
+            <Card.Title
+              style={{
+                fontSize: "20px",
+                fontWeight: "600",
+                lineHeight: "30px",
+                textAlign: "left",
+              }}>
+              {benefit.title}
+            </Card.Title>
+            <Card.Text>{benefit.text}</Card.Text>
+          </Card.Body>
+        </motion.Card>
       ))}
     </BenefitsDiv>
   );
