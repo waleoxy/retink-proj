@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { motion, useCycle } from "framer-motion";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { useEffect, useState } from "react";
 
 const loaderVariants = {
   animationOne: {
@@ -50,20 +49,6 @@ const buttonVariants = {
 
 const HeaderSection = () => {
   const [animation, cycle] = useCycle("animationOne", "animationTwo");
-  const [user, setUser] = useState({});
-  const [modal, setModal] = useState(false);
-  const [showTitle, setShowTitle] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setModal(true);
-    }, 5000);
-  }, [setModal]);
-
-  setTimeout(() => {
-    setShowTitle(false);
-  }, 4000);
-
   const {
     register,
     handleSubmit,
@@ -76,18 +61,17 @@ const HeaderSection = () => {
     createUserWithEmailAndPassword(auth, email, businessName)
       .then((userData) => {
         const user = userData.user;
-        setUser(user);
-        setModal(true);
+        console.log(user);
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
-  console.log(user);
+
   return (
     <HeaderSecDiv>
       {/* ledt */}
-      <div className="section-left">
+      <div className="section-left ">
         <Logo />
         <div className="heading">
           <p className="heading-txt">Get Advanced AI + Expert Created</p>
@@ -112,7 +96,9 @@ const HeaderSection = () => {
                   placeholder="Business Name"
                 />
                 {errors.businessName ? (
-                  "Business name is required"
+                  <span style={{ color: "red" }}>
+                    Business name is required
+                  </span>
                 ) : (
                   <span>would like a beta invite sent to </span>
                 )}
@@ -125,11 +111,15 @@ const HeaderSection = () => {
                   })}
                   placeholder=" @email address"
                 />
-                {errors.email
-                  ? errors.email.type === "pattern"
-                    ? "Email is not valid"
-                    : "Email is required"
-                  : ""}
+                {errors.email ? (
+                  errors.email.type === "pattern" ? (
+                    <span style={{ color: "red" }}>Email badly formatted</span>
+                  ) : (
+                    <span style={{ color: "red" }}>Email is required</span>
+                  )
+                ) : (
+                  ""
+                )}
                 <span>when it’s ready!</span>
               </div>
               <div className="btn-div">
@@ -149,7 +139,6 @@ const HeaderSection = () => {
           </div>
         </div>
       </div>
-
       {/* right */}
       <div className="section-right">
         {" "}

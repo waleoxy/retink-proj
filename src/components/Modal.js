@@ -30,12 +30,29 @@ const Modal = ({ modal, setModal }) => {
     <AnimatePresence exitBeforeEnter>
       {modal && (
         <motion.div
-          className="backdrop"
+          style={{
+            position: "fixed",
+            top: "0px",
+            left: "0px",
+            width: "100%",
+            height: "100%",
+            zIndex: "2",
+            background: "#0A66C2",
+          }}
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
           exit="hidden">
-          <motion.div className="modal" variants={modalVariants}>
+          <motion.div
+            style={{
+              maxWidth: "400px",
+              margin: "0 auto",
+              padding: "40px 20px",
+              background: "white",
+              borderRadius: "10px",
+              textAlign: "center",
+            }}
+            variants={modalVariants}>
             <p>Want to make another pizza?</p>
             <Link to="/">
               <button>Go to Home</button>
